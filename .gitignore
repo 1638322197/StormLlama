@@ -1,0 +1,18 @@
+# 编译输出（绝对不上传）
+bin/
+obj/
+Publish/
+packages/
+
+# Visual Studio 缓存
+.vs/
+*.suo
+*.user
+
+# 日志与临时文件
+*.log
+*.tmp
+
+# 配置文件
+*.ini
+*.config
