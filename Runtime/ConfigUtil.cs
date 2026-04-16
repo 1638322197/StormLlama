@@ -38,7 +38,7 @@ public class ConfigUtil
     {
         get
         {
-            string temp = Path.Combine(AppDir, "llama");
+            string temp = Path.Combine(AppDir, "Llama");
             Directory.CreateDirectory(temp);
             return temp;
         }
