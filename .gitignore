@@ -1,0 +1,12 @@
+bin/
+obj/
+Publish/
+packages/
+PublishProfiles/
+.vs/
+*.suo
+*.user
+*.log
+*.tmp
+*.ini
+*.config
