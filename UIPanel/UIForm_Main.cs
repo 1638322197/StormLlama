@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic.Logging;
 using StormLlama.Properties;
 using StormLlama.Runtime;
 using Sunny.UI;
@@ -89,7 +88,6 @@ public partial class UIForm_Main : UIForm
     {
         var list = FileUtil.GetModelList().ToList();
 
-        // 头部插入空项
         list.Insert(0, new ModelData { DisplayText = "<无视觉模型>", FileName = "" });
 
         UICbo_VisualModelSelect.DataSource = null;
@@ -125,39 +123,6 @@ public partial class UIForm_Main : UIForm
     }
 
     /// <summary>
-    /// 模型导入按钮事件
-    /// </summary>
-    private void UIBtn_ModelImport_Click(object sender, EventArgs e)
-    {
-        var result = FileUtil.ImportModel();
-        if (result)
-        {
-            UICbo_ModelSelectRefesh();
-            UICbo_VisualModelSelectRefesh();
-        }
-    }
-
-    /// <summary>
-    /// 模型目录按钮事件
-    /// </summary>
-    private void UIBtn_OpenModelDir_Click(object sender, EventArgs e)
-    {
-        FileUtil.OpenModelDir();
-    }
-
-    /// <summary>
-    /// 刷新按钮事件
-    /// </summary>
-    private void UIBtn_Refesh_Click(object sender, EventArgs e)
-    {
-        FileUtil.RefreshModelList();
-        UICbo_ModelSelectRefesh();
-        UICbo_VisualModelSelectRefesh();
-    }
-    #endregion
-
-    #region 服务器端口
-    /// <summary>
     /// 服务端口刷新
     /// </summary>
     private void UIIntUD_ServicePortRefesh()
@@ -174,9 +139,7 @@ public partial class UIForm_Main : UIForm
         ConfigUtil.INI_ServicePort = UIIntUD_ServicePort.Value;
         UIRTextBox_ApiUrlRefresh();
     }
-    #endregion
 
-    #region GPU调用层数
     /// <summary>
     /// GPU调用层数刷新
     /// </summary>
@@ -192,9 +155,7 @@ public partial class UIForm_Main : UIForm
     {
         ConfigUtil.INI_GPULayer = UIIntUD_GPULayer.Value;
     }
-    #endregion
-
-    #region 上下文长度
+  
     /// <summary>
     /// 上下文长度输入框刷新
     /// </summary>
@@ -210,27 +171,7 @@ public partial class UIForm_Main : UIForm
     {
         ConfigUtil.INI_ContextLength_k = UIIntUD_ContextLength.Value;
     }
-    #endregion
 
-    #region 额外命令行参数
-    /// <summary>
-    /// 额外命令行参数刷新
-    /// </summary>
-    private void UITextBox_ExtraArgsRefresh()
-    {
-        UITextBox_ExtraArgs.Text = ConfigUtil.INI_ExtraArgs;
-    }
-
-    /// <summary>
-    /// 额外命令行参数输入框事件
-    /// </summary>
-    private void UITextBox_ExtraArgs_TextChanged(object sender, EventArgs e)
-    {
-        ConfigUtil.INI_ExtraArgs = UITextBox_ExtraArgs.Text;
-    }
-    #endregion
-
-    #region Api地址
     /// <summary>
     /// Api地址刷新
     /// </summary>
@@ -258,9 +199,113 @@ public partial class UIForm_Main : UIForm
             MessageBox.Show($"无法打开链接: {ex.Message}", "跳转失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+
+    /// <summary>
+    /// 额外命令行参数刷新
+    /// </summary>
+    private void UITextBox_ExtraArgsRefresh()
+    {
+        UITextBox_ExtraArgs.Text = ConfigUtil.INI_ExtraArgs;
+    }
+
+    /// <summary>
+    /// 额外命令行参数输入框事件
+    /// </summary>
+    private void UITextBox_ExtraArgs_TextChanged(object sender, EventArgs e)
+    {
+        ConfigUtil.INI_ExtraArgs = UITextBox_ExtraArgs.Text;
+    }
     #endregion
 
-    #region 程序设置和Llama
+    #region 状态面板
+    /// <summary>
+    /// 更新状态面板
+    /// </summary>
+    private void UpdateStatusPanel(LlamaUtil.HardwareInfo hw)
+    {
+        if (InvokeRequired)
+        {
+            BeginInvoke(() => UpdateStatusPanel(hw));
+            return;
+        }
+
+        UILabel_CPUName.Text = hw.CpuName;
+        UILabel_GPUName.Text = hw.GpuName;
+        UILabel_CPUUsage.Text = hw.CpuText;
+        UILabel_GPUUsage.Text = hw.GpuText;
+        UILabel_CPUMemory.Text = hw.MemoryText;
+        UILabel_GPUMemory.Text = hw.VramText;
+    }
+    #endregion
+
+    #region 操作面板
+    /// <summary>
+    /// GitHub仓库地址按钮事件
+    /// </summary>
+    private void UIBtn_GitUrl_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = ConfigUtil.GitUrl,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"无法打开链接: {ex.Message}", "跳转失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    /// <summary>
+    /// 模型目录按钮事件
+    /// </summary>
+    private void UIBtn_OpenModelDir_Click(object sender, EventArgs e)
+    {
+        FileUtil.OpenModelDir();
+    }
+
+    /// <summary>
+    /// 模型导入按钮事件
+    /// </summary>
+    private void UIBtn_ModelImport_Click(object sender, EventArgs e)
+    {
+        var result = FileUtil.ImportModel();
+        if (result)
+        {
+            UICbo_ModelSelectRefesh();
+            UICbo_VisualModelSelectRefesh();
+        }
+    }
+
+    /// <summary>
+    /// 刷新模型列表按钮事件
+    /// </summary>
+    private void UIBtn_Refesh_Click(object sender, EventArgs e)
+    {
+        FileUtil.RefreshModelList();
+        UICbo_ModelSelectRefesh();
+        UICbo_VisualModelSelectRefesh();
+    }
+
+    /// <summary>
+    /// 导入Llama按钮事件
+    /// </summary>
+    private void UIBtn_ImportLlama_Click(object sender, EventArgs e)
+    {
+        FileUtil.ImportLlama();
+    }
+
+    /// <summary>
+    /// 打开程序目录按钮事件
+    /// </summary>
+    private void UIBtn_OpenAppDir_Click(object sender, EventArgs e)
+    {
+        FileUtil.OpenAppDir();
+    }
+
     /// <summary>
     /// 关闭时最小化切换刷新
     /// </summary>
@@ -275,46 +320,6 @@ public partial class UIForm_Main : UIForm
     private void UISwitch_MiniOnClose_ValueChanged(object sender, bool value)
     {
         ConfigUtil.INI_MiniOnClose = UISwitch_MiniOnClose.Active;
-    }
-
-    /// <summary>
-    /// 导入Llama事件
-    /// </summary>
-    private void UIBtn_ImportLlama_Click(object sender, EventArgs e)
-    {
-        FileUtil.ImportLlama();
-    }
-
-    /// <summary>
-    /// 打开程序目录
-    /// </summary>
-    private void UIBtn_OpenAppDir_Click(object sender, EventArgs e)
-    {
-        FileUtil.OpenAppDir();
-    }
-    #endregion
-
-    #region Icon相关
-    /// <summary>
-    /// Icon菜单退出事件
-    /// </summary>
-    private void IconMenu_Exit_Click(object sender, EventArgs e)
-    {
-        _needClose = true;
-        this.Close();
-    }
-
-    /// <summary>
-    /// Icon点击事件
-    /// </summary>
-    private void AppIcon_MouseClick(object sender, MouseEventArgs e)
-    {
-        if (e.Button == MouseButtons.Left)
-        {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
-            this.Activate();
-        }
     }
     #endregion
 
@@ -400,15 +405,16 @@ public partial class UIForm_Main : UIForm
     }
 
     /// <summary>
-    /// 清理所有后台llama进程事件
+    /// 清理所有后台llama进程按钮事件
     /// </summary>
     private void UIBtn_KillAllLlamaServer_Click(object sender, EventArgs e)
     {
         LlamaUtil.KillAllLlamaServer();
         UIBtn_ServiceControlUpdate(true);
     }
+
     /// <summary>
-    /// 清除日志
+    /// 清除日志按钮事件
     /// </summary>
     private void UIBtn_ClearLog_Click(object sender, EventArgs e)
     {
@@ -416,23 +422,27 @@ public partial class UIForm_Main : UIForm
     }
     #endregion
 
-    #region 状态面板
+    #region Icon相关
     /// <summary>
-    /// 更新状态面板
+    /// Icon菜单退出事件
     /// </summary>
-    private void UpdateStatusPanel(LlamaUtil.HardwareInfo hw)
+    private void IconMenu_Exit_Click(object sender, EventArgs e)
     {
-        if (InvokeRequired)
+        _needClose = true;
+        this.Close();
+    }
+
+    /// <summary>
+    /// Icon点击事件
+    /// </summary>
+    private void AppIcon_MouseClick(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left)
         {
-            BeginInvoke(() => UpdateStatusPanel(hw));
-            return;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            this.Activate();
         }
-        UILabel_CPUName.Text = hw.CpuName;
-        UILabel_GPUName.Text = hw.GpuName;
-        UILabel_CPUUsage.Text = hw.CpuText;
-        UILabel_GPUUsage.Text = hw.GpuText;
-        UILabel_CPUMemory.Text = hw.MemoryText;
-        UILabel_GPUMemory.Text = hw.VramText;
     }
     #endregion
 }

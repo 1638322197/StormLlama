@@ -82,6 +82,7 @@ partial class UIForm_Main
         UICbo_VisualModelSelect = new UIComboBox();
         UILabel_VisualModelSelect = new UILabel();
         uiPanel2 = new Sunny.UI.UIPanel();
+        UIBtn_GitUrl = new UIButton();
         IconMenu.SuspendLayout();
         UIPanel_Status.SuspendLayout();
         UIPanel_GPU.SuspendLayout();
@@ -137,7 +138,7 @@ partial class UIForm_Main
         // 
         UIBtn_ModelImport.FillColor = Color.FromArgb(24, 24, 24);
         UIBtn_ModelImport.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-        UIBtn_ModelImport.Location = new Point(200, 62);
+        UIBtn_ModelImport.Location = new Point(200, 87);
         UIBtn_ModelImport.MinimumSize = new Size(1, 1);
         UIBtn_ModelImport.Name = "UIBtn_ModelImport";
         UIBtn_ModelImport.RectSize = 2;
@@ -152,7 +153,7 @@ partial class UIForm_Main
         // 
         UIBtn_OpenModelDir.FillColor = Color.FromArgb(24, 24, 24);
         UIBtn_OpenModelDir.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-        UIBtn_OpenModelDir.Location = new Point(74, 62);
+        UIBtn_OpenModelDir.Location = new Point(74, 87);
         UIBtn_OpenModelDir.MinimumSize = new Size(1, 1);
         UIBtn_OpenModelDir.Name = "UIBtn_OpenModelDir";
         UIBtn_OpenModelDir.RectSize = 2;
@@ -167,7 +168,7 @@ partial class UIForm_Main
         // 
         UIBtn_Refesh.FillColor = Color.FromArgb(24, 24, 24);
         UIBtn_Refesh.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-        UIBtn_Refesh.Location = new Point(326, 62);
+        UIBtn_Refesh.Location = new Point(326, 87);
         UIBtn_Refesh.MinimumSize = new Size(1, 1);
         UIBtn_Refesh.Name = "UIBtn_Refesh";
         UIBtn_Refesh.RectSize = 2;
@@ -269,7 +270,7 @@ partial class UIForm_Main
         UIIntUD_ContextLength.ForeDisableColor = Color.Silver;
         UIIntUD_ContextLength.Location = new Point(159, 235);
         UIIntUD_ContextLength.Margin = new Padding(4, 5, 4, 5);
-        UIIntUD_ContextLength.Maximum = 128D;
+        UIIntUD_ContextLength.Maximum = 256D;
         UIIntUD_ContextLength.Minimum = 1D;
         UIIntUD_ContextLength.MinimumSize = new Size(1, 16);
         UIIntUD_ContextLength.Name = "UIIntUD_ContextLength";
@@ -418,7 +419,7 @@ partial class UIForm_Main
         UISwitch_MiniOnClose.ActiveText = "退出时最小化";
         UISwitch_MiniOnClose.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
         UISwitch_MiniOnClose.InActiveText = "退出时关闭";
-        UISwitch_MiniOnClose.Location = new Point(326, 108);
+        UISwitch_MiniOnClose.Location = new Point(326, 133);
         UISwitch_MiniOnClose.MinimumSize = new Size(1, 1);
         UISwitch_MiniOnClose.Name = "UISwitch_MiniOnClose";
         UISwitch_MiniOnClose.RectSize = 2;
@@ -500,7 +501,7 @@ partial class UIForm_Main
         // 
         UIBtn_ImportLlama.FillColor = Color.FromArgb(24, 24, 24);
         UIBtn_ImportLlama.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-        UIBtn_ImportLlama.Location = new Point(74, 108);
+        UIBtn_ImportLlama.Location = new Point(74, 133);
         UIBtn_ImportLlama.MinimumSize = new Size(1, 1);
         UIBtn_ImportLlama.Name = "UIBtn_ImportLlama";
         UIBtn_ImportLlama.RectSize = 2;
@@ -515,7 +516,7 @@ partial class UIForm_Main
         // 
         UIBtn_OpenAppDir.FillColor = Color.FromArgb(24, 24, 24);
         UIBtn_OpenAppDir.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
-        UIBtn_OpenAppDir.Location = new Point(200, 108);
+        UIBtn_OpenAppDir.Location = new Point(200, 133);
         UIBtn_OpenAppDir.MinimumSize = new Size(1, 1);
         UIBtn_OpenAppDir.Name = "UIBtn_OpenAppDir";
         UIBtn_OpenAppDir.RectSize = 2;
@@ -811,6 +812,7 @@ partial class UIForm_Main
         // 
         // uiPanel2
         // 
+        uiPanel2.Controls.Add(UIBtn_GitUrl);
         uiPanel2.Controls.Add(UIBtn_Refesh);
         uiPanel2.Controls.Add(UIBtn_ImportLlama);
         uiPanel2.Controls.Add(UISwitch_MiniOnClose);
@@ -830,6 +832,21 @@ partial class UIForm_Main
         uiPanel2.TabIndex = 53;
         uiPanel2.Text = " 操作面板";
         uiPanel2.TextAlignment = ContentAlignment.TopCenter;
+        // 
+        // UIBtn_GitUrl
+        // 
+        UIBtn_GitUrl.FillColor = Color.FromArgb(24, 24, 24);
+        UIBtn_GitUrl.Font = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+        UIBtn_GitUrl.Location = new Point(74, 41);
+        UIBtn_GitUrl.MinimumSize = new Size(1, 1);
+        UIBtn_GitUrl.Name = "UIBtn_GitUrl";
+        UIBtn_GitUrl.RectSize = 2;
+        UIBtn_GitUrl.Size = new Size(402, 40);
+        UIBtn_GitUrl.TabIndex = 43;
+        UIBtn_GitUrl.Text = "GitHub仓库地址";
+        UIBtn_GitUrl.TipsFont = new Font("微软雅黑", 9F, FontStyle.Bold, GraphicsUnit.Point, 134);
+        UIBtn_GitUrl.TipsForeColor = Color.Black;
+        UIBtn_GitUrl.Click += UIBtn_GitUrl_Click;
         // 
         // UIForm_Main
         // 
@@ -920,5 +937,6 @@ partial class UIForm_Main
     private UILabel UILabel_GPUName;
     private UILabel UILabel_GPUNameTag;
     private Sunny.UI.UIPanel uiPanel2;
+    private UIButton UIBtn_GitUrl;
 }
 

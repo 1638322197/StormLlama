@@ -9,8 +9,10 @@ namespace StormLlama.Runtime;
 public class ConfigUtil
 {
     //常量
-    public const string FormTitle = "Llamacpp启动器_v260416";
+    public const string FormTitle = "Llamacpp启动器_v260417";
     public const string ApiUrlPrefix = "http://127.0.0.1:";
+    public const string GitUrl = "https://github.com/1638322197/StormLlama";
+
     //路径
     public static string AppDir => Application.StartupPath;
     public static string ModelsDir
