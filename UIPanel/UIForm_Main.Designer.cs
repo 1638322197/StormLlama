@@ -322,11 +322,16 @@ partial class UIForm_Main
         UITextBox_ExtraArgs.Padding = new Padding(5);
         UITextBox_ExtraArgs.RectReadOnlyColor = Color.FromArgb(80, 160, 255);
         UITextBox_ExtraArgs.RectSize = 2;
+        UITextBox_ExtraArgs.ScrollBarBackColor = Color.FromArgb(24, 24, 24);
+        UITextBox_ExtraArgs.ScrollBarHandleWidth = 8;
+        UITextBox_ExtraArgs.ScrollBarStyleInherited = false;
+        UITextBox_ExtraArgs.ScrollBarWidth = 8;
+        UITextBox_ExtraArgs.ShowScrollBar = true;
         UITextBox_ExtraArgs.ShowText = false;
         UITextBox_ExtraArgs.Size = new Size(380, 162);
         UITextBox_ExtraArgs.TabIndex = 31;
         UITextBox_ExtraArgs.TextAlignment = ContentAlignment.TopLeft;
-        UITextBox_ExtraArgs.Watermark = "例如:-c 4096 --temp 0.7 --top_p 0.9";
+        UITextBox_ExtraArgs.Watermark = "例如:-c 4096 --temp 0.7 --top-p 0.9";
         UITextBox_ExtraArgs.WatermarkActiveColor = Color.FromArgb(64, 64, 64);
         UITextBox_ExtraArgs.WatermarkColor = Color.FromArgb(64, 64, 64);
         UITextBox_ExtraArgs.TextChanged += UITextBox_ExtraArgs_TextChanged;

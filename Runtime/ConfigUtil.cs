@@ -9,7 +9,7 @@ namespace StormLlama.Runtime;
 public class ConfigUtil
 {
     //常量
-    public const string FormTitle = "Llamacpp启动器_v260417";
+    public const string FormTitle = "Llamacpp启动器_v260420";
     public const string ApiUrlPrefix = "http://127.0.0.1:";
     public const string GitUrl = "https://github.com/1638322197/StormLlama";
 
@@ -112,8 +112,43 @@ public class ConfigUtil
     /// </summary>
     public static string INI_ExtraArgs
     {
+        /*
         get => GetConfig("Model", "INI_ExtraArgs", "");
         set => WriteConfig("Model", "INI_ExtraArgs", value);
+        */
+        get
+        {
+            string base64 = GetConfig("Model", "INI_ExtraArgs", "").Trim();
+            if (string.IsNullOrEmpty(base64)) return "";
+            var bytes = Convert.FromBase64String(base64);
+            return Encoding.UTF8.GetString(bytes);
+        }
+        set
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(value ?? "");
+            string base64 = Convert.ToBase64String(bytes);
+            WriteConfig("Model", "INI_ExtraArgs", base64);
+        }
+    }
+
+    /// <summary>
+    /// 额外参数(启动使用)
+    /// </summary>
+    public static string INI_ExtraArgs_Clean
+    {
+        get
+        {
+            var input = INI_ExtraArgs;
+            if (string.IsNullOrWhiteSpace(input)) return "";
+
+            string cleaned = input
+                .Replace("\r", " ")
+                .Replace("\n", " ")
+                .Replace("\t", " ");
+            while (cleaned.Contains("  "))
+                cleaned = cleaned.Replace("  ", " ");
+            return cleaned.Trim();
+        }
     }
 
     /// <summary>

@@ -361,7 +361,7 @@ public partial class UIForm_Main : UIForm
             int port = ConfigUtil.INI_ServicePort;
             int gpuLayer = ConfigUtil.INI_GPULayer;
             int ctxLen = ConfigUtil.INI_ContextLength_k * 1024;
-            string extra = ConfigUtil.INI_ExtraArgs;
+            string extra = ConfigUtil.INI_ExtraArgs_Clean;
             bool success = LlamaUtil.StartLlama(llamaServerPath, modelPath, visualModelPath, port, gpuLayer, ctxLen, extra);
             UIBtn_ServiceControlUpdate(!success);
         }
